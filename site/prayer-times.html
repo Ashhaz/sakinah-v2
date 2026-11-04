@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prayer times · Sakīna</title>
+<meta name="description" content="Prayer times for your country and city, with the next prayer counting down.">
+<meta name="theme-color" content="#060914">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23080c1c'/%3E%3Cpath d='M50 12 L58 34 L80 26 L72 48 L90 56 L68 62 L72 86 L52 72 L38 90 L34 66 L10 62 L28 48 L20 26 L42 34 Z' fill='none' stroke='%23e9cf8a' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-hue="45">
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="mark">✶</span><span>Sakīna</span></a>
+  <nav>
+    <a href="index.html#topics">Topics</a>
+    <a href="prayer-times.html">Prayer times</a>
+    <a href="duas.html">Du’as</a>
+    <a href="about.html">About &amp; sources</a>
+    <button class="calm-btn" type="button" aria-pressed="false" title="Turn off 3D background and animations">Calm mode</button>
+  </nav>
+</header>
+<main id="main">
+<section class="hero topic-hero">
+  <a class="crumb" href="index.html">← Home</a>
+  <p class="eyebrow">Ṣalāh</p>
+  <h1 class="split">Prayer times</h1>
+  <p class="tagline">Choose your country and city, or use your location.</p>
+  <p class="intro">Prayer is the anchor of the day and a built-in rest from the screen. Times are calculated for your place, and methods differ between countries, so please also check with your local masjid.</p>
+</section>
+<section class="block pt" id="pt-app">
+  <form class="pt-form reveal" id="pt-form" autocomplete="off">
+    <label>Country<input id="pt-country" list="countries" placeholder="e.g. India" required></label>
+    <label>City<input id="pt-city" placeholder="e.g. Hyderabad" required></label>
+    <label>Calculation method
+      <select id="pt-method">
+        <option value="auto">Automatic (by location)</option>
+        <option value="1">University of Islamic Sciences, Karachi</option>
+        <option value="2">ISNA (North America)</option>
+        <option value="3">Muslim World League</option>
+        <option value="4">Umm al-Qura, Makkah</option>
+        <option value="5">Egyptian General Authority</option>
+        <option value="8">Gulf Region</option>
+        <option value="9">Kuwait</option>
+        <option value="10">Qatar</option>
+        <option value="11">Singapore (MUIS)</option>
+        <option value="13">Turkey (Diyanet)</option>
+        <option value="15">Moonsighting Committee</option>
+      </select></label>
+    <label>Asr time
+      <select id="pt-school"><option value="0">Standard (Shāfiʿī, Mālikī, Ḥanbalī)</option><option value="1">Ḥanafī (later Asr)</option></select></label>
+    <div class="pt-actions"><button class="btn primary" type="submit">Show times</button><button class="btn" type="button" id="pt-geo">Use my location</button><button class="btn" type="button" id="pt-12h">12 / 24 hour</button></div>
+    <datalist id="countries"><option value="Afghanistan"><option value="Algeria"><option value="Argentina"><option value="Australia"><option value="Austria"><option value="Azerbaijan"><option value="Bahrain"><option value="Bangladesh"><option value="Belgium"><option value="Bosnia and Herzegovina"><option value="Brazil"><option value="Brunei"><option value="Canada"><option value="China"><option value="Denmark"><option value="Egypt"><option value="France"><option value="Germany"><option value="Ghana"><option value="India"><option value="Indonesia"><option value="Iran"><option value="Iraq"><option value="Ireland"><option value="Italy"><option value="Japan"><option value="Jordan"><option value="Kazakhstan"><option value="Kenya"><option value="Kuwait"><option value="Lebanon"><option value="Libya"><option value="Malaysia"><option value="Maldives"><option value="Morocco"><option value="Nepal"><option value="Netherlands"><option value="New Zealand"><option value="Nigeria"><option value="Norway"><option value="Oman"><option value="Pakistan"><option value="Palestine"><option value="Philippines"><option value="Qatar"><option value="Russia"><option value="Saudi Arabia"><option value="Senegal"><option value="Singapore"><option value="Somalia"><option value="South Africa"><option value="Spain"><option value="Sri Lanka"><option value="Sudan"><option value="Sweden"><option value="Switzerland"><option value="Syria"><option value="Tanzania"><option value="Tunisia"><option value="Turkey"><option value="UAE"><option value="Uganda"><option value="United Kingdom"><option value="United States"><option value="Uzbekistan"><option value="Yemen"></datalist>
+  </form>
+  <p class="pt-status" id="pt-status" role="status"></p>
+  <div class="pt-next" id="pt-next" hidden><span class="eyebrow">Next prayer</span><strong id="pt-next-name"></strong><span id="pt-next-in"></span></div>
+  <div class="pt-grid" id="pt-grid"></div>
+  <p class="small muted" id="pt-meta"></p>
+</section>
+<section class="block"><div class="sec-head reveal"><span class="num">I</span><h2>About the prayers</h2></div><div class="grid"><article class="card verse reveal tilt">
+  <div class="ar" lang="ar" dir="rtl" data-ayahs="4:103"><span class="ar-ph">…</span></div>
+  <p class="en">And when you have completed the prayer, remember Allah standing, sitting, or [lying] on your sides. But when you become secure, re-establish [regular] prayer. Indeed, prayer has been decreed upon the believers at specified times.</p>
+  <p class="why">Prayer has appointed times, which is why accurate times matter.</p>
+  <footer><a class="ref" href="https://quran.com/4/103" target="_blank" rel="noopener">Qur’an 4:103</a>
+  <span class="surah">Sūrat An-Nisāʾ</span><button class="report" type="button" data-ref="Qur’an 4:103" data-page="prayer-times" title="Report a possible mistake" aria-label="Report a possible mistake in Qur’an 4:103">⚑</button></footer>
+</article><article class="card hadith reveal tilt">
+  <p class="en">Ibn Masʿūd asked the Prophet ﷺ: “Which deed is most beloved to Allah?” He said: “Prayer at its proper time.” He asked: “Then what?” He said: “Kindness to parents.” He asked: “Then what?” He said: “Jihad in the cause of Allah.”</p>
+  <p class="by">Narrated by ʿAbdullāh ibn Masʿūd (may Allah be pleased with him)</p>
+  <p class="why">The first answer is the one to remember: prayer on time.</p>
+  <footer><a class="ref" href="https://sunnah.com/bukhari:527" target="_blank" rel="noopener">Sahih al-Bukhari 527</a> <a class="ref" href="https://sunnah.com/muslim:85" target="_blank" rel="noopener">Sahih Muslim 85</a><span class="grade" title="Found in Ṣaḥīḥ al-Bukhārī and/or Ṣaḥīḥ Muslim">Ṣaḥīḥ</span><button class="report" type="button" data-ref="Sahih al-Bukhari 527 / Sahih Muslim 85" data-page="prayer-times" title="Report a possible mistake" aria-label="Report a possible mistake in Sahih al-Bukhari 527 / Sahih Muslim 85">⚑</button></footer>
+</article><article class="card hadith reveal tilt">
+  <p class="en">The Prophet ﷺ asked: “What do you think if there were a river at the door of one of you in which he bathed five times every day; would any dirt remain on him?” They said, “No dirt would remain.” He said: “That is like the five prayers; by them Allah erases sins.”</p>
+  <p class="by">Narrated by Abū Hurayrah (may Allah be pleased with him)</p>
+  
+  <footer><a class="ref" href="https://sunnah.com/bukhari:528" target="_blank" rel="noopener">Sahih al-Bukhari 528</a> <a class="ref" href="https://sunnah.com/muslim:667" target="_blank" rel="noopener">Sahih Muslim 667</a><span class="grade" title="Found in Ṣaḥīḥ al-Bukhārī and/or Ṣaḥīḥ Muslim">Ṣaḥīḥ</span><button class="report" type="button" data-ref="Sahih al-Bukhari 528 / Sahih Muslim 667" data-page="prayer-times" title="Report a possible mistake" aria-label="Report a possible mistake in Sahih al-Bukhari 528 / Sahih Muslim 667">⚑</button></footer>
+</article></div></section>
+<section class="block prose reveal"><h2>About these times</h2>
+<p>Times come from the free <a href="https://aladhan.com/prayer-times-api" target="_blank" rel="noopener">AlAdhan prayer-times service</a>. Countries and communities use different calculation methods, and some masjids follow their own timetable. If the times here differ from your local masjid, please follow your masjid. Your chosen city is saved only in this browser.</p></section></main>
+<footer class="site-footer">
+  <div class="verse-line">
+    <span lang="ar" dir="rtl">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</span>
+    <em>“Truly, in the remembrance of Allah do hearts find peace.” (Qur’an 13:28)</em>
+  </div>
+  <p>Sakīna was made with the intention of comfort. It is a collection of references, not a source of fatwā or medical advice. Please verify any reference on <a href="https://quran.com" target="_blank" rel="noopener">Quran.com</a> and <a href="https://sunnah.com" target="_blank" rel="noopener">Sunnah.com</a> and ask qualified scholars about religious rulings.</p>
+  <p><a href="about.html#crisis">In crisis? Get help now →</a> · <a href="about.html">About &amp; sources</a> · <a href="references.html">All references (for reviewers)</a></p>
+  <p class="small">Status: a personal project, not yet formally reviewed by a qualified scholar. Please verify before relying on anything here.</p>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
